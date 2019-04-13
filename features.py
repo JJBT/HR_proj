@@ -61,11 +61,18 @@ def career(user_id):
     return 0
 
 
-def about_interest(user_id):
+def get_user_descr(user_id):
     resp = api.users.get(user_ids=user_id, fields='about,interests,activities')
     arr = list([resp[0].get('about', ''), resp[0].get('interests', ''),  resp[0].get('activities', '')])
     arr = list(filter(lambda x: x != '', arr))
     return ' '.join(arr)
+
+
+def it_descr(user_id):
+    descr = get_user_descr(user_id)
+    if it_text(descr):
+        return True
+    return False
 
 
 def group_count(user_id):
@@ -106,7 +113,7 @@ def detect_it_group(group_id):
     arr = list(filter(lambda x: x != '', arr))
     text = ' '.join(arr)
 
-    if it_string(text):
+    if it_text(text):
         return True
     return False
 
@@ -139,8 +146,8 @@ def detect_it_post(post):
     text = clean_string(text, 'html')
 
     print(text)
-    if it_string(text):
-        print('string True')
+    if it_text(text):
+        print('\t\tText True')
         return True
 
     if 'copy_history' in post.keys():
@@ -153,7 +160,7 @@ def detect_it_post(post):
     return False
 
 
-def it_string(s):
+def it_text(s):
     s = s.lower()
 
     for item in corpus:
@@ -170,7 +177,7 @@ def clean_string(string, word):
 
 
 if __name__ == '__main__':
-    df, err = main_loop('user_descr', about_interest)
+    df, err = main_loop('user_descr', get_user_descr)
 # df.to_excel('Base.xlsx')
 
 #
