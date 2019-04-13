@@ -4,10 +4,7 @@ import vk.exceptions
 import pandas as pd
 import time
 
-
-client_id = '6933199'
-access_token = '38d6f7bf156227703caa449f71e234c94777cfaf1eb5734271a429c846fa64296f481d1c2b58a53560580'
-API_version = '5.52'
+from Credentials import *
 
 session = vk.Session(access_token=access_token)
 api = vk.API(session, v=API_version)
