@@ -8,7 +8,7 @@ import time
 
 from Credentials import *
 
-api = vk_requests.create_api(service_token=access_token, api_version=API_version, http_params=proxies)
+api = vk_requests.create_api(service_token=access_token, api_version=API_version, http_params={'proxies': proxies})
 
 corpus = pd.read_excel('data/corpus.xlsx')['words'].values
 
