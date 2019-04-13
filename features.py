@@ -1,13 +1,14 @@
 import vk
 import vk.exceptions
 
+import vk_requests
+
 import pandas as pd
 import time
 
 from Credentials import *
 
-session = vk.Session(access_token=access_token)
-api = vk.API(session, v=API_version)
+api = vk_requests.create_api(service_token=access_token, api_version=API_version, http_params=proxies)
 
 corpus = pd.read_excel('data/corpus.xlsx')['words'].values
 
@@ -174,7 +175,7 @@ def clean_string(string, word):
 
 
 if __name__ == '__main__':
-    df, err = main_loop('user_descr', get_user_descr)
+    df, err = main_loop('id', get_id)
 # df.to_excel('Base.xlsx')
 
 #
