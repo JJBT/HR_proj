@@ -186,6 +186,5 @@ if __name__ == '__main__':
     df, err = main_loop('it_descr', it_descr)
     df.to_excel('Base.xlsx')
 
-#
 
 
