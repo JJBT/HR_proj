@@ -9,7 +9,8 @@ from Credentials import *
 session = vk.Session(access_token=access_token)
 api = vk.API(session, v=API_version)
 
-corpus = pd.read_excel('data/corpus.xlsx')['words'].values
+corpus1 = pd.read_excel('data/corpus.xlsx')['words'].dropna().values
+corpus2 = pd.read_excel('data/corpus.xlsx')['words_groups'].dropna().values
 
 
 def main_loop(feature, func):
@@ -19,10 +20,12 @@ def main_loop(feature, func):
     err_arr = []
 
     for idx, row in df.iterrows():
+        res = 0
         try:
-            time.sleep(0.4)
+            time.sleep(0.5)
             res = func(row['vk_id'])
         except vk.exceptions.VkAPIError as e:
+            print(e)
             print(idx, 'err')
             time.sleep(1)
             err_arr.append(idx)
@@ -67,14 +70,15 @@ def get_user_descr(user_id):
 
 def it_descr(user_id):
     descr = get_user_descr(user_id)
-    if it_text(descr):
+    if it_text(descr, 1):
         return True
     return False
 
 
 def group_count(user_id):
     resp = api.users.get(user_ids=user_id, fields='counters')
-    return resp[0].get('groups', 0)
+    print(resp)
+    return resp[0]['counters'].get('pages', 0)
 
 
 def groups(user_id):
@@ -110,7 +114,7 @@ def detect_it_group(group_id):
     arr = list(filter(lambda x: x != '', arr))
     text = ' '.join(arr)
 
-    if it_text(text):
+    if it_text(text, 2):
         return True
     return False
 
@@ -143,7 +147,7 @@ def detect_it_post(post):
     text = clean_string(text, 'html')
 
     print(text)
-    if it_text(text):
+    if it_text(text, 1):
         print('\t\tText True')
         return True
 
@@ -157,8 +161,12 @@ def detect_it_post(post):
     return False
 
 
-def it_text(s):
+def it_text(s, n_corpus):
     s = s.lower()
+    if n_corpus == 2:
+        corpus = corpus2
+    else:
+        corpus = corpus1
 
     for item in corpus:
         if item in s:
@@ -174,9 +182,9 @@ def clean_string(string, word):
 
 
 if __name__ == '__main__':
-    df, err = main_loop('user_descr', get_user_descr)
-# df.to_excel('Base.xlsx')
+    df, err = main_loop('it_descr', it_descr)
+    df.to_excel('Base.xlsx')
 
-#
+
 
 
