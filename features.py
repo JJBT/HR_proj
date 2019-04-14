@@ -2,6 +2,7 @@ import vk
 import vk.exceptions
 
 import vk_requests
+import vk_requests.exceptions
 
 import pandas as pd
 import time
@@ -14,9 +15,7 @@ corpus1 = pd.read_excel('data/corpus.xlsx')['words'].dropna().values
 corpus2 = pd.read_excel('data/corpus.xlsx')['words_groups'].dropna().values
 
 
-def main_loop(feature, func):
-
-    df = pd.read_excel('Base.xlsx')
+def main_loop(df, feature, func):
 
     err_arr = []
 
@@ -24,8 +23,8 @@ def main_loop(feature, func):
         res = 0
         try:
             time.sleep(0.5)
-            res = func(row['vk_id'])
-        except vk.exceptions.VkAPIError as e:
+            res = func(row['id'])
+        except vk_requests.exceptions.VkAPIError as e:
             print(e)
             print(idx, 'err')
             time.sleep(1)
@@ -78,7 +77,6 @@ def it_descr(user_id):
 
 def group_count(user_id):
     resp = api.users.get(user_ids=user_id, fields='counters')
-    print(resp)
     return resp[0]['counters'].get('pages', 0)
 
 
@@ -183,8 +181,11 @@ def clean_string(string, word):
 
 
 if __name__ == '__main__':
-    df, err = main_loop('it_descr', it_descr)
-    df.to_excel('Base.xlsx')
+    path_to_df = 'Base.xlsx'
+
+    df = pd.read_excel(path_to_df)
+    df, err = main_loop(df, 'post_count', post_count)
+    df.to_excel(path_to_df)
 
 
 
