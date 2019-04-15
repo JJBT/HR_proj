@@ -13,9 +13,7 @@ corpus1 = pd.read_excel('data/corpus.xlsx')['words'].dropna().values
 corpus2 = pd.read_excel('data/corpus.xlsx')['words_groups'].dropna().values
 
 
-def main_loop(feature, func):
-
-    df = pd.read_excel('Base.xlsx')
+def main_loop(df, feature, func):
 
     err_arr = []
 
@@ -23,12 +21,17 @@ def main_loop(feature, func):
         res = 0
         try:
             time.sleep(0.5)
-            res = func(row['vk_id'])
+            res = func(row['id'])
         except vk.exceptions.VkAPIError as e:
             print(e)
             print(idx, 'err')
             time.sleep(1)
             err_arr.append(idx)
+        except BaseException as e:
+            print(e)
+            err_arr.append(idx)
+            return df, err_arr
+
         print(idx, ' - ', res)
         df.loc[idx, feature] = res
     return df, err_arr
@@ -181,9 +184,12 @@ def clean_string(string, word):
     return string
 
 
+path_to_df = 'Base.xlsx'
 if __name__ == '__main__':
-    df, err = main_loop('it_descr', it_descr)
-    df.to_excel('Base.xlsx')
+    df = pd.read_excel(path_to_df)
+
+    df, err = main_loop(df, 'it_group_count', it_group_count)
+    df.to_excel(path_to_df)
 
 
 
