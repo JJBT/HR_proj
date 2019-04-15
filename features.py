@@ -142,7 +142,9 @@ def detect_it_post(post):
 
     if 'attachments' in post.keys():
         if post['attachments'][0]['type'] == 'link':
-            attach = post['attachments'][0]['link']['url']
+            ur = post['attachments'][0]['link']['url']
+            if ur:
+                attach = ur
         elif post['attachments'][0]['type'] == 'video':
             attach = post['attachments'][0]['video']['title']
 
