@@ -13,11 +13,11 @@ corpus1 = pd.read_excel('data/corpus.xlsx')['words'].dropna().values
 corpus2 = pd.read_excel('data/corpus.xlsx')['words_groups'].dropna().values
 
 
-def main_loop(df, feature, func):
+def main_loop(df, feature, func, start_idx=0):
 
     err_arr = []
 
-    for idx, row in df.iterrows():
+    for idx, row in df.loc[start_idx:, :].iterrows():
         res = 0
         try:
             time.sleep(0.5)
