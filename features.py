@@ -186,10 +186,20 @@ def clean_string(string, word):
     return string
 
 
-path_to_df = 'Base.xlsx'
-path_to_err_file = 'err.xlsx'
+def main(path_to_df, feature, func):
+    df = pd.read_excel(path_to_df)
+
+    df, err = main_loop(df, feature, func)
+    df.to_excel(path_to_df)
+
+    err_df = pd.Series(err)
+    err_df.to_excel(path_to_err_file)
+
 
 if __name__ == '__main__':
+    path_to_df = 'Base.xlsx'
+    path_to_err_file = 'err.xlsx'
+
     df = pd.read_excel(path_to_df)
 
     df, err = main_loop(df, 'it_group_count', it_group_count)
