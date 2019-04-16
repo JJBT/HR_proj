@@ -4,5 +4,4 @@ test.py
 __pycache__/
 data/
 parsing.py
-Credentials.py
 
