@@ -15,11 +15,15 @@ corpus1 = pd.read_excel('data/corpus.xlsx')['words'].dropna().values
 corpus2 = pd.read_excel('data/corpus.xlsx')['words_groups'].dropna().values
 
 
-def main_loop(df, feature, func, start_idx=0):
+def main_loop(df, feature, func, start_idx=0, arr_idx=None):
 
     err_arr = []
+    if arr_idx is not None:
+        df_range = df.loc[arr_idx].iterrows()
+    else:
+        df_range = df.loc[start_idx:, :].iterrows()
 
-    for idx, row in df.loc[start_idx:, :].iterrows():
+    for idx, row in df_range:
         res = 0
         try:
             time.sleep(0.5)
