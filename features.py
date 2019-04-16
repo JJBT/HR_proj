@@ -15,11 +15,11 @@ corpus1 = pd.read_excel('data/corpus.xlsx')['words'].dropna().values
 corpus2 = pd.read_excel('data/corpus.xlsx')['words_groups'].dropna().values
 
 
-def main_loop(df, feature, func):
+def main_loop(df, feature, func, start_idx=0):
 
     err_arr = []
 
-    for idx, row in df.iterrows():
+    for idx, row in df.loc[start_idx:, :].iterrows():
         res = 0
         try:
             time.sleep(0.5)
@@ -29,6 +29,11 @@ def main_loop(df, feature, func):
             print(idx, 'err')
             time.sleep(1)
             err_arr.append(idx)
+        except BaseException as e:
+            print(e)
+            err_arr.append(idx)
+            return df, err_arr
+
         print(idx, ' - ', res)
         df.loc[idx, feature] = res
     return df, err_arr
@@ -138,7 +143,9 @@ def detect_it_post(post):
 
     if 'attachments' in post.keys():
         if post['attachments'][0]['type'] == 'link':
-            attach = post['attachments'][0]['link']['url']
+            ur = post['attachments'][0]['link']['url']
+            if ur:
+                attach = ur
         elif post['attachments'][0]['type'] == 'video':
             attach = post['attachments'][0]['video']['title']
 
@@ -180,12 +187,23 @@ def clean_string(string, word):
     return string
 
 
-if __name__ == '__main__':
-    path_to_df = 'Base.xlsx'
-
+def main(path_to_df, feature, func):
     df = pd.read_excel(path_to_df)
-    df, err = main_loop(df, 'post_count', post_count)
+
+    df, err = main_loop(df, feature, func)
     df.to_excel(path_to_df)
 
+    err_df = pd.Series(err)
+    err_df.to_excel(path_to_err_file)
 
 
+if __name__ == '__main__':
+    path_to_df = 'Base.xlsx'
+    path_to_err_file = 'err.xlsx'
+
+    df = pd.read_excel(path_to_df)
+
+    df, err = main_loop(df, 'it_group_count', it_group_count)
+    df.to_excel(path_to_df)
+    err_df = pd.Series(err)
+    err_df.to_excel(path_to_err_file)
