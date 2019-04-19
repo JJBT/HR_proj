@@ -13,7 +13,7 @@ corpus1 = pd.read_excel('data/corpus.xlsx')['words'].dropna().values
 corpus2 = pd.read_excel('data/corpus.xlsx')['words_groups'].dropna().values
 
 
-def main_loop(df, feature, func, start_idx=0, arr_idx=None):
+def main_loop(df, feature, func, start_idx=0, arr_idx=None, ident='id'):
 
     err_arr = []
     if arr_idx is not None:
@@ -25,7 +25,7 @@ def main_loop(df, feature, func, start_idx=0, arr_idx=None):
         res = 0
         try:
             time.sleep(0.5)
-            res = func(row['id'])
+            res = func(row[ident])
         except vk.exceptions.VkAPIError as e:
             print(e)
             print(idx, 'err')
@@ -44,6 +44,11 @@ def main_loop(df, feature, func, start_idx=0, arr_idx=None):
 def get_id(user_id):
     resp = api.users.get(user_ids=user_id)
     return resp[0]['id']
+
+
+def get_sex(user_id):
+    resp = api.users.get(user_ids=user_id, fields='sex')
+    return resp[0]['sex'] - 1
 
 
 def educat(user_id):
@@ -84,13 +89,13 @@ def it_descr(user_id):
 
 def group_count(user_id):
     resp = api.users.get(user_ids=user_id, fields='counters')
-    print(resp)
+    # print(resp)
     return resp[0]['counters'].get('pages', 0)
 
 
 def groups(user_id):
     resp = api.users.getSubscriptions(user_id=user_id, fields='description,activity,status')
-    return resp['groups']['items'][:100]
+    return resp['groups']['items'][:25]
 
 
 def it_group_count(user_id):
@@ -155,16 +160,16 @@ def detect_it_post(post):
     text = ' '.join([post['text'], attach])
     text = clean_string(text, 'html')
 
-    print(text)
+    # print(text)
     if it_text(text, 1):
-        print('\t\tText True')
+        # print('\t\tText True')
         return True
 
     if 'copy_history' in post.keys():
         source_id = str(post['copy_history'][0]['owner_id']).lstrip('-')
 
         if detect_it_group(source_id):
-            print(True)
+            # print(True)
             return True
 
     return False
