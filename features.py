@@ -90,7 +90,7 @@ def group_count(user_id):
 
 def groups(user_id):
     resp = api.users.getSubscriptions(user_id=user_id, fields='description,activity,status')
-    return resp['groups']['items']
+    return resp['groups']['items'][:100]
 
 
 def it_group_count(user_id):
