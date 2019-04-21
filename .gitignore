@@ -1,0 +1,7 @@
+.idea/
+*xlsx
+test.py
+__pycache__/
+data/
+parsing.py
+
