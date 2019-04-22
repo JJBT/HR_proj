@@ -27,8 +27,9 @@ df1 = df.loc[:, labels]
 df1['tight_post'] = df1['post_count'].apply(lambda x: x if x <= 100 else 100)
 df1['it_post_prop'] = df1['it_post_count'] / (df1['tight_post'] + 1)
 
+model = 'models/' + 'logit_with_group_count'
 
-with open('model.pickle', 'rb') as f:
+with open(model, 'rb') as f:
     clf = pickle.load(f)
 
 X = df1.values
@@ -36,4 +37,3 @@ y = clf.predict(X)
 df1['y'] = y
 df1['link'] = links
 df1.to_excel('test.xlsx')
-
