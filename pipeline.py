@@ -3,7 +3,7 @@ from features import *
 import pickle
 
 
-path_to_models1 = ['']
+path_to_models1 = ['sgd', 'logit']
 path_to_models1 = list(map(lambda x: 'models/' + x, path_to_models1))
 
 path_to_models2 = ['sgd_without_group', 'logit_without_group']
@@ -45,12 +45,12 @@ df['it_group_prop'] = df['it_group_count'] / (df['tight_group'] + 1)
 
 print('Predicting...')
 
-# for i, path in enumerate(path_to_models1):
-#     with open(path, 'rb') as f:
-#         clf = pickle.load(f)
-#     X = df.loc[:, labels1].values
-#     y = clf.predict(X)
-#     df['model' + str(i)] = y
+for i, path in enumerate(path_to_models1):
+    with open(path, 'rb') as f:
+        clf = pickle.load(f)
+    X = df.loc[:, labels1].values
+    y = clf.predict(X)
+    df['model' + str(i)] = y
 
 
 for i, path in enumerate(path_to_models2, len(path_to_models1)):
