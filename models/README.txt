@@ -3,12 +3,11 @@
 
 # features = ['career', 'educ', 'has_descr', 'it_descr',
 #             'it_post_count', 'it_post_prop',
-#             'post_count', 'site', 'tight_post', 'y', 'tight_group']
+#             'post_count', 'site', 'tight_post', 'y']
 
-Точность моделей, обученных на этих признаках:
-Логистическая регрессия - 82.57%
-SGD классификатор - 82.43%
-Случайный лес - 89.23%
+точность Логистической регрессии (logit): 68.13 %
+точность SGD классификатора (SGDClassifier): 66.57 %
+точность Случайного леса (RandomForest): 84.27 %
 
 Модели, в названии которых отсутствует "_without_group",
 обучались на данных с признаками:
@@ -17,7 +16,6 @@ SGD классификатор - 82.43%
 #             'it_group_count', 'it_group_prop', 'it_post_count', 'it_post_prop',
 #             'post_count', 'site', 'tight_post', 'y', 'tight_group']
 
-Точность моделей:
-Логистическая регрессия - 92.77%
-SGD классификатор - 99.15%
-Случайный лес - 99.85%
+точность Логистической регрессии (logit): 90.65 %
+точность SGD классификатора (SGDClassifier): 90.00 %
+точность Случайного леса (RandomForest):  93.20%
