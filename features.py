@@ -28,7 +28,7 @@ def main_loop(df, feature, func, start_idx=0, arr_idx=None, ident='id'):
             res = func(row[ident])
         except vk.exceptions.VkAPIError as e:
             print(e)
-            print(idx, 'err')
+            # print(idx, 'err')
             time.sleep(1)
             err_arr.append(idx)
         except BaseException as e:
@@ -36,7 +36,7 @@ def main_loop(df, feature, func, start_idx=0, arr_idx=None, ident='id'):
             err_arr.append(idx)
             return df, err_arr
 
-        print(idx, ' - ', res)
+        # print(idx, ' - ', res)
         df.loc[idx, feature] = res
     return df, err_arr
 
@@ -112,7 +112,7 @@ def detect_it_group(group_id):
     time.sleep(0.4)
     resp = api.groups.getById(group_id=group_id, fields='description,activity,status')
 
-    print(resp[0]['name'])
+    # print(resp[0]['name'])
 
     activities = ['Программирование']
 
@@ -184,7 +184,7 @@ def it_text(s, n_corpus):
 
     for item in corpus:
         if item in s:
-            print('**' + item)
+            # print('**' + item)
             return True
     return False
 
