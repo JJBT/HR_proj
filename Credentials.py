@@ -6,3 +6,7 @@ API_version = '5.89'
 proxies = {
     'http': 'http://95.105.89.151:53906',
 }
+
+bot_token = '743195030:AAHjN0W4M5FEsZV04J_fxsEyhAj0a8sjoLo'
+bot_proxy = 'socks5://207.230.114.35:40566'
+mtproto = 'fckrkn.teleproxy.me:ddec0de00000000000000000000badcafe@443'
