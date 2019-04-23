@@ -23,7 +23,7 @@ def handle_start_help(message):
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
-    df = bot_pipe.main(message)
+    df = bot_pipe.main(message.text)
     answer = 'model0 - {0} \n model1 - {1} \n model2 - {2} \n ' \
              'model3 - {3} \n model4 - {4}'.format(df['model0'], df['model1'], df['model2'], df['model3'],
                                                    df['model4'])
