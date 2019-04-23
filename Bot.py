@@ -25,8 +25,8 @@ def handle_start_help(message):
 def handle_text(message):
     df = bot_pipe.main(message.text)
     answer = 'model0 - {0} \n model1 - {1} \n model2 - {2} \n ' \
-             'model3 - {3} \n model4 - {4}'.format(df['model0'], df['model1'], df['model2'], df['model3'],
-                                                   df['model4'])
+             'model3 - {3} \n model4 - {4}'.format(df.loc[0, 'model0'], df[0, 'model1'], df[0, 'model2'], df[0, 'model3'],
+                                                   df[0, 'model4'])
     bot.send_message(message.from_user.id, answer)
     log(message, answer)
 
