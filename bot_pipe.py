@@ -16,9 +16,20 @@ labels1 = ['career', 'educ', 'it_descr',
             'site', 'tight_post', 'tight_group']
 
 
+def check_privacy(user_id):
+    resp = api.users.get(user_ids=user_id)
+    if resp[0]['is_closed'] or ('deactived' in resp[0].keys()):
+        return False
+    return True
+
+
 def main(text):
     df = pd.DataFrame({'link': [text]})
     df['vk_id'] = df['link'].apply(lambda x: x.split('/')[-1])
+
+    if not check_privacy(df.loc[0, 'vk_id']):
+        return False
+
     df, err = main_loop(df, feature='id', func=get_id, ident='vk_id')
     df['id'] = df['id'].astype('int')
     df, err = main_loop(df, feature='site', func=site)
