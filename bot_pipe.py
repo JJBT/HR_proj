@@ -2,7 +2,7 @@ from features import *
 import pickle
 
 
-path_to_models1 = ['forest_forest1', 'forest_forest2']
+path_to_models1 = ['forest_forest2']
 path_to_models1 = list(map(lambda x: 'models/' + x, path_to_models1))
 
 # path_to_models2 = ['sgd_without_group', 'logit_without_group']
