@@ -2,18 +2,18 @@ from features import *
 import pickle
 
 
-path_to_models1 = ['fr', 'sgd', 'logit']
+path_to_models1 = ['forest_forest1', 'forest_forest2']
 path_to_models1 = list(map(lambda x: 'models/' + x, path_to_models1))
 
-path_to_models2 = ['sgd_without_group', 'logit_without_group']
-path_to_models2 = list(map(lambda x: 'models/' + x, path_to_models2))
+# path_to_models2 = ['sgd_without_group', 'logit_without_group']
+# path_to_models2 = list(map(lambda x: 'models/' + x, path_to_models2))
 
 
-labels2 = ['site', 'career', 'educ', 'has_descr', 'it_descr', 'post_count', 'it_post_count', 'group_count',
-               'it_group_count']
-labels1 = ['career', 'educ', 'has_descr', 'it_descr', 'group_count',
-               'it_group_count', 'it_group_prop', 'it_post_count', 'it_post_prop',
-               'post_count', 'site', 'tight_post', 'tight_group']
+# labels2 = ['site', 'career', 'educ', 'has_descr', 'it_descr', 'post_count', 'it_post_count', 'group_count',
+#                'it_group_count']
+labels1 = ['career', 'educ', 'it_descr',
+            'it_group_prop', 'it_post_count', 'it_post_prop',
+            'site', 'tight_post', 'tight_group']
 
 
 def main(text):
@@ -47,12 +47,12 @@ def main(text):
         y = clf.predict(X)
         df['model' + str(i)] = y
 
-    for i, path in enumerate(path_to_models2, len(path_to_models1)):
-        with open(path, 'rb') as f:
-            clf = pickle.load(f)
-        X = df.loc[:, labels2].values
-        y = clf.predict(X)
-        df['model' + str(i)] = y
+    # for i, path in enumerate(path_to_models2, len(path_to_models1)):
+    #     with open(path, 'rb') as f:
+    #         clf = pickle.load(f)
+    #     X = df.loc[:, labels2].values
+    #     y = clf.predict(X)
+    #     df['model' + str(i)] = y
 
     return df
 
