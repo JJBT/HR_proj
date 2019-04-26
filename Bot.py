@@ -24,10 +24,7 @@ def handle_start_help(message):
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
     df = bot_pipe.main(message.text)
-    if not df:
-        answer = 'User is closed or deleted'
-    else:
-        answer = f'model0 - {df.loc[0, "model0"]}'
+    answer = f'model0 - {df.loc[0, "model0"]}'
     bot.send_message(message.from_user.id, answer)
     log(message, answer)
 

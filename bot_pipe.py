@@ -27,8 +27,8 @@ def main(text):
     df = pd.DataFrame({'link': [text]})
     df['vk_id'] = df['link'].apply(lambda x: x.split('/')[-1])
 
-    if not check_privacy(df.loc[0, 'vk_id']):
-        return False
+    # if not check_privacy(df.loc[0, 'vk_id']):
+    #     return False
 
     df, err = main_loop(df, feature='id', func=get_id, ident='vk_id')
     df['id'] = df['id'].astype('int')
