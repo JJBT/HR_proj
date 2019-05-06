@@ -13,7 +13,7 @@ corpus1 = pd.read_excel('data/corpus.xlsx')['words'].dropna().values
 corpus2 = pd.read_excel('data/corpus.xlsx')['words_groups'].dropna().values
 
 
-def main_loop(df, feature, func, start_idx=0, arr_idx=None, ident='id'):
+def main_loop(df, feature, func, start_idx=0, arr_idx=None, ident='id', verbose=True):
 
     err_arr = []
     if arr_idx is not None:
@@ -27,16 +27,21 @@ def main_loop(df, feature, func, start_idx=0, arr_idx=None, ident='id'):
             time.sleep(0.5)
             res = func(row[ident])
         except vk.exceptions.VkAPIError as e:
-            print(e)
+            if verbose:
+                print(e)
             # print(idx, 'err')
             time.sleep(1)
             err_arr.append(idx)
         except BaseException as e:
-            print(e)
+            if verbose:
+                print(e)
             err_arr.append(idx)
+
             return df, err_arr
 
-        # print(idx, ' - ', res)
+        if verbose:
+            print(idx, ' - ', res)
+
         df.loc[idx, feature] = res
     return df, err_arr
 
