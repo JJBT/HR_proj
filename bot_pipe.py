@@ -2,7 +2,7 @@ from features import *
 import pickle
 
 
-path_to_models1 = ['forest_forest1', 'forest_forest2']
+path_to_models1 = ['forest_forest2']
 path_to_models1 = list(map(lambda x: 'models/' + x, path_to_models1))
 
 # path_to_models2 = ['sgd_without_group', 'logit_without_group']
@@ -27,8 +27,8 @@ def main(text):
     df = pd.DataFrame({'link': [text]})
     df['vk_id'] = df['link'].apply(lambda x: x.split('/')[-1])
 
-    if not check_privacy(df.loc[0, 'vk_id']):
-        return False
+    # if not check_privacy(df.loc[0, 'vk_id']):
+    #     return False
 
     df, err = main_loop(df, feature='id', func=get_id, ident='vk_id')
     df['id'] = df['id'].astype('int')
