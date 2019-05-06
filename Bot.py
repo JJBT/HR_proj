@@ -10,10 +10,14 @@ bot = telebot.TeleBot(bot_token)
 
 
 def log(message, answer):
-    print("\n----------")
-    print(datetime.now())
-    print(message.text)
-    print(answer)
+    output = '\n'.join(['\n----------', str(datetime.now()), message.text, answer])
+    print(output)
+    log_to_file(output)
+
+
+def log_to_file(output):
+    with open('log_file.txt', 'a') as log_file:
+        log_file.write(output)
 
 
 @bot.message_handler(commands=['start', 'help'])
