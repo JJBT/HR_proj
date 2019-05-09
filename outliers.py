@@ -1,8 +1,16 @@
+"""Deleting outliers"""
+
 import pandas as pd
 import numpy as np
+import sys
 
 
-df = pd.read_excel('data.xlsx')
+if len(sys.argv) > 1:
+    filename = sys.argv[1]
+else:
+    filename = 'data/data.xlsx'
+
+df = pd.read_excel(filename)
 
 labels = ['group_count', 'post_count', 'it_group_prop', 'it_post_prop']
 

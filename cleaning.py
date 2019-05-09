@@ -1,16 +1,23 @@
+"""Deleting non-active accounts"""
+
 import pandas as pd
 import vk
 import vk.exceptions
 import time
+import sys
 
 from Credentials import *
 
-"""Удаление недействительных аккаунтов"""
 
 session = vk.Session(access_token=access_token1)
 api = vk.API(session, v=API_version)
 
-df = pd.read_excel('java.xlsx')
+if len(sys.argv) > 1:
+    filename = sys.argv[1]
+else:
+    filename = 'data/java.xlsx'
+
+df = pd.read_excel(filename)
 
 
 err_arr = []
@@ -35,4 +42,6 @@ print(err_arr)
 
 df.drop(err_arr, axis=0, inplace=True)
 df.reset_index(inplace=True, drop=True)
-# df.to_excel('Base.xlsx')
+
+filename_to_save = filename
+df.to_excel(filename_to_save)

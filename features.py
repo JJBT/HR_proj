@@ -9,8 +9,8 @@ from Credentials import *
 session = vk.Session(access_token=access_token)
 api = vk.API(session, v=API_version)
 
-corpus1 = pd.read_excel('data/corpus.xlsx')['words'].dropna().values
-corpus2 = pd.read_excel('data/corpus.xlsx')['words_groups'].dropna().values
+corpus1 = pd.read_excel(path_to_corpus)['words'].dropna().values
+corpus2 = pd.read_excel(path_to_corpus)['words_groups'].dropna().values
 
 
 def main_loop(df, feature, func, start_idx=0, arr_idx=None, ident='id', verbose=True):

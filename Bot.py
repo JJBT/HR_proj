@@ -28,7 +28,11 @@ def handle_start_help(message):
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
     df = bot_pipe.main(message.text)
-    answer = f'model0 - {df.loc[0, "model0"]}'
+    if type(df) == bool and not df:
+        answer = 'Account is private or blocked'
+    else:
+        answer = 'model0 - {0}'.format(df.loc[0, "model0"])
+
     bot.send_message(message.from_user.id, answer)
     log(message, answer)
 

@@ -9,7 +9,7 @@ path_to_models1 = list(map(lambda x: 'models/' + x, path_to_models1))
 path_to_models2 = ['sgd_without_group', 'logit_without_group']
 path_to_models2 = list(map(lambda x: 'models/' + x, path_to_models2))
 
-path_to_file = 'test.xlsx'
+path_to_file = 'data/test.xlsx'
 df = pd.read_excel(path_to_file)
 
 print('Feature extracting...')

@@ -10,4 +10,4 @@ proxies = {
 bot_token = '743195030:AAHjN0W4M5FEsZV04J_fxsEyhAj0a8sjoLo'
 bot_proxy = 'socks5://207.230.114.35:40566'
 
-
+path_to_corpus = 'Source/corpus.xlsx'

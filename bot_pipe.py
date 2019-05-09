@@ -27,21 +27,21 @@ def main(text):
     df = pd.DataFrame({'link': [text]})
     df['vk_id'] = df['link'].apply(lambda x: x.split('/')[-1])
 
-    # if not check_privacy(df.loc[0, 'vk_id']):
-    #     return False
+    if not check_privacy(df.loc[0, 'vk_id']):
+        return False
 
-    df, err = main_loop(df, feature='id', func=get_id, ident='vk_id')
+    df, err = main_loop(df, feature='id', func=get_id, ident='vk_id', verbose=False)
     df['id'] = df['id'].astype('int')
-    df, err = main_loop(df, feature='site', func=site)
-    df, err = main_loop(df, feature='career', func=career)
-    df, err = main_loop(df, feature='educ', func=educat)
-    df, err = main_loop(df, feature='user_descr', func=get_user_descr)
-    df, err = main_loop(df, feature='it_descr', func=it_descr)
+    df, err = main_loop(df, feature='site', func=site, verbose=False)
+    df, err = main_loop(df, feature='career', func=career, verbose=False)
+    df, err = main_loop(df, feature='educ', func=educat, verbose=False)
+    df, err = main_loop(df, feature='user_descr', func=get_user_descr, verbose=False)
+    df, err = main_loop(df, feature='it_descr', func=it_descr, verbose=False)
     df['has_descr'] = df['user_descr'].apply(lambda x: 1 if x != '' else 0)
-    df, err = main_loop(df, feature='group_count', func=group_count)
-    df, err = main_loop(df, feature='it_group_count', func=it_group_count)
-    df, err = main_loop(df, feature='post_count', func=post_count)
-    df, err = main_loop(df, feature='it_post_count', func=it_post_count)
+    df, err = main_loop(df, feature='group_count', func=group_count, verbose=False)
+    df, err = main_loop(df, feature='it_group_count', func=it_group_count, verbose=False)
+    df, err = main_loop(df, feature='post_count', func=post_count, verbose=False)
+    df, err = main_loop(df, feature='it_post_count', func=it_post_count, verbose=False)
 
     df = df.loc[:, ~df.columns.str.match('Unnamed')]
 
