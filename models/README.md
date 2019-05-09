@@ -1,0 +1,2 @@
+Features for forest_forest2:
+features = ['career', 'educ', 'it_descr', 'it_group_prop', 'it_post_count', 'it_post_prop', 'site', 'tight_post', 'tight_group']
