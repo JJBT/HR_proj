@@ -26,4 +26,7 @@ new_df = filt_df.apply(lambda x: x[x < quant_df.loc[high, x.name]], axis=0)
 new_df = pd.concat([new_df, df.loc[:, list(set(df.columns) - set(labels))]], axis=1)
 new_df.dropna(inplace=True)
 new_df.reset_index(inplace=True, drop=True)
-new_df.to_excel('data_out.xlsx')
+
+filename_arr = filename.split('.')
+filename_to_save = filename_arr[0] + '_out.' + filename_arr[1]
+new_df.to_excel(filename_to_save)
