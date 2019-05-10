@@ -9,6 +9,7 @@ from sklearn.metrics import accuracy_score
 warnings.filterwarnings('ignore')
 
 df = pd.read_excel('data.xlsx')
+
 features = ['it_descr', 'it_group_prop', 'it_post_prop',
             'it_group_count', 'it_post_count', 'y']
 

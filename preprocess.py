@@ -40,7 +40,7 @@ def log_err(err_dict):
     df = pd.DataFrame()
     for i in err_dict:
         if len(err_dict[i]) > 0:
-            df[i] = pd.Series(err_dict[i])
+            df = pd.concat([df, pd.DataFrame({i: err_dict[i]})], axis=1)
     df.to_excel('err.xlsx')
 
 
