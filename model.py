@@ -1,5 +1,6 @@
 # ОБУЧЕНИЕ
 import pandas as pd
+import pickle
 from sklearn.model_selection import train_test_split, StratifiedKFold, RandomizedSearchCV
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
@@ -14,16 +15,15 @@ path_non_prog = "data/non_prog_parsed.xlsx"
 df_non = pd.read_excel(path_non_prog)
 
 features = ['career', 'educ', 'it_descr',
-            'it_group_prop', 'it_post_count', 'it_post_prop',
+            'it_group_prop', 'it_group_count', 'it_post_count', 'it_post_prop',
             'site', 'tight_post', 'y']
 
 df_base = df_base.loc[:1000, features]
-df_base.reset_index(inplace=True)
-df_base = df_base.drop('index', axis=1)
+df_base.reset_index(inplace=True, drop=True)
 df_non = df_non.loc[:, features]
 df_label_0 = df_label_0.loc[:, features]
 
-df = pd.concat([df_base, df_label_0, df_non])
+df = pd.concat([df_base, df_label_0, df_non], ignore_index=True)
 X, y = df.drop('y', axis=1).values, df['y'].values
 X_train, X_test, y_train, y_test = train_test_split(X, y, shuffle=True, test_size=0.25)
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=4)
@@ -41,3 +41,10 @@ search.fit(X_train, y_train)
 model = search.best_estimator_
 print("BEST ESTIMATOR {}".format(model))
 print(accuracy_score(y_test, model.predict(X_test)))
+
+pickle.dump(model, open('rf_new', 'wb'))
+
+with open('rf_new_descr.txt', 'w') as file:
+    file.write('valid accuracy - {}\n'.format(accuracy_score(y_test, model.predict(X_test))))
+    file.write('features = [{0}]\n'.format(','.join(features)))
+    file.write('model - {0}'.format(model.__repr__()))
