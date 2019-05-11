@@ -5,6 +5,8 @@ from sklearn.model_selection import train_test_split, StratifiedKFold, Randomize
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 
+from meth_mod import save_model
+
 path_label0_xlsx = "data/label_data_0.xlsx"
 df_label_0 = pd.read_excel(path_label0_xlsx)
 
@@ -40,11 +42,11 @@ print("TRAINING")
 search.fit(X_train, y_train)
 model = search.best_estimator_
 print("BEST ESTIMATOR {}".format(model))
-print(accuracy_score(y_test, model.predict(X_test)))
 
-pickle.dump(model, open('rf_new', 'wb'))
+accuracy = accuracy_score(y_test, model.predict(X_test))
 
-with open('rf_new_descr.txt', 'w') as file:
-    file.write('valid accuracy - {}\n'.format(accuracy_score(y_test, model.predict(X_test))))
-    file.write('features = [{0}]\n'.format(','.join(features)))
-    file.write('model - {0}'.format(model.__repr__()))
+print(accuracy)
+
+save_model(model_name='rf_new', model=model, accuracy=accuracy, features=features)
+
+

@@ -6,6 +6,8 @@ from sklearn.metrics import accuracy_score
 
 from sklearn.model_selection import GridSearchCV, StratifiedKFold
 
+from meth_mod import save_model
+
 path_label0_xlsx = "data/label_data_0.xlsx"
 df_label_0 = pd.read_excel(path_label0_xlsx)
 
@@ -41,12 +43,8 @@ param = {'n_estimators': [x for x in range(10, 201, 20)],
 grid = GridSearchCV(xgb, param_grid=param, cv=cv, scoring='accuracy', verbose=1)
 grid.fit(X_train, y_train)
 model = grid.best_estimator_
-print(accuracy_score(y_test, grid.predict(X_test)))
 
-pickle.dump(model, open('xgb_new1', 'wb'))
+accuracy = accuracy_score(y_test, grid.predict(X_test))
+print(accuracy)
 
-with open('xgb_new1_descr.txt', 'w') as file:
-    file.write('Data for fit - X, y')
-    file.write('valid accuracy - {}\n'.format(accuracy_score(y_test, model.predict(X_test))))
-    file.write('features = [{0}]\n'.format(','.join(features)))
-    file.write('model - {0}'.format(model.__repr__()))
+save_model(model_name='xgb_new', model=model, accuracy=accuracy, features=features)
