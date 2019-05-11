@@ -1,9 +1,0 @@
-valid accuracy - 0.7840616966580977
-features = [career,educ,it_descr,it_group_prop,it_group_count,it_post_count,it_post_prop,site,tight_post,y]
-model - RandomForestClassifier(bootstrap=True, class_weight={0: 1, 1: 0.5},
-            criterion='gini', max_depth=10, max_features='auto',
-            max_leaf_nodes=None, min_impurity_decrease=0.0,
-            min_impurity_split=None, min_samples_leaf=1,
-            min_samples_split=2, min_weight_fraction_leaf=0.0,
-            n_estimators=1000, n_jobs=None, oob_score=False,
-            random_state=None, verbose=0, warm_start=False)
