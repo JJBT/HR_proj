@@ -1,6 +1,7 @@
 import vk
 import vk.exceptions
 
+import numpy as np
 import pandas as pd
 import time
 
@@ -111,6 +112,19 @@ def it_group_count(user_id):
         if detect_it_group(gr_id):
             counter += 1
     return counter
+
+
+def weighted_group_sum(user_id):
+    def func(x):
+        return 10 / (1 + 5 * np.e * (x / 10))
+
+    items = groups(user_id)
+    sum = 0
+
+    for i, gr_id in enumerate(items, 1):
+        if detect_it_group(gr_id):
+            sum += func(i)
+    return sum
 
 
 def detect_it_group(group_id):

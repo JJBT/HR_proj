@@ -21,6 +21,7 @@ def preproccess(path_to_file):
     df['has_descr'] = df['user_descr'].apply(lambda x: 1 if x != '' else 0)
     df, err_dict['group_count'] = main_loop(df, feature='group_count', func=group_count)
     df, err_dict['it_group_count'] = main_loop(df, feature='it_group_count', func=it_group_count)
+    df, err_dict['weighted_group_sum'] = main_loop(df, feature='weighted_group_sum', func=weighted_group_sum)
     df, err_dict['post_count'] = main_loop(df, feature='post_count', func=post_count)
     df, err_dict['it_post_count'] = main_loop(df, feature='it_post_count', func=it_post_count)
 
