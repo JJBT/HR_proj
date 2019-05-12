@@ -10,7 +10,7 @@ def postproccess(path_to_file):
     err_dict = {}
 
     print('Feature extracting...')
-    
+
     df, err_dict['weighted_group_sum'] = main_loop(df, feature='weighted_group_sum', func=weighted_group_sum)
 
     df.to_excel(path_to_file)
