@@ -10,9 +10,9 @@ def preproccess(path_to_file):
     err_dict = {}
 
     print('Feature extracting...')
-    df['vk_id'] = df['link'].apply(lambda x: x.split('/')[-1])
-    df, err_dict['id'] = main_loop(df, feature='id', func=get_id, ident='vk_id')
-    df['id'] = df['id'].astype('int')
+    # df['vk_id'] = df['link'].apply(lambda x: x.split('/')[-1])
+    # df, err_dict['id'] = main_loop(df, feature='id', func=get_id, ident='vk_id')
+    # df['id'] = df['id'].astype('int')
     df, err_dict['site'] = main_loop(df, feature='site', func=site)
     df, err_dict['career'] = main_loop(df, feature='career', func=career)
     df, err_dict['educ'] = main_loop(df, feature='educ', func=educat)

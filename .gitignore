@@ -3,3 +3,7 @@ test.py
 __pycache__/
 Source/
 t_*
+*.swp
+*.swo
+err.xlsx
+
