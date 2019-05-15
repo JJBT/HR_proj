@@ -1,0 +1,15 @@
+{
+    "valid accuracy": 0.8414481897627965,
+    "features": [
+        "career",
+        "educ",
+        "it_descr",
+        "it_group_prop",
+        "it_group_count",
+        "it_post_count",
+        "it_post_prop",
+        "site",
+        "y",
+        "weighted_group_sum"
+    ]
+}

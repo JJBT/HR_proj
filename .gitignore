@@ -6,4 +6,4 @@ t_*
 *.swp
 *.swo
 err.xlsx
-
+venv
