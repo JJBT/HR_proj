@@ -48,4 +48,4 @@ model = grid.best_estimator_
 accuracy = accuracy_score(y_test, grid.predict(X_test))
 print(accuracy)
 
-# save_model(model_name='xgb_new', model=model, accuracy=accuracy, features=features)
+save_model(model_name='xgb', model=model, accuracy=accuracy, features=features)

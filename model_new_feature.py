@@ -48,4 +48,4 @@ print("BEST ESTIMATOR {}".format(model))
 accuracy = accuracy_score(y_test, model.predict(X_test))
 print(accuracy)
 
-# save_model(model_name='rf_new_out', model=model, accuracy=accuracy, features=features)
+save_model(model_name='rf', model=model, accuracy=accuracy, features=features)
