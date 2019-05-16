@@ -8,7 +8,7 @@ path_to_df = "data/java.xlsx"
 df = pd.read_excel(path_to_df)
 df = df.loc[:687, :]
 
-models = ['rf', 'xgb']
+models = ['rf', 'xgb_new_model']
 path_to_models = list(map(lambda x: 'fited_full_data/' + x, models))
 
 

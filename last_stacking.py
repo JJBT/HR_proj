@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split, StratifiedKFold
 from sklearn.metrics import accuracy_score
 from vecstack import stacking
+from sklearn.linear_model import LogisticRegression
 
 path_label0_xlsx = "~/PycharmProjects/tinkof/data/id_label0_new.xlsx"
 df_label_0 = pd.read_excel(path_label0_xlsx)
@@ -17,8 +18,8 @@ features = ['career', 'educ', 'it_descr',
             'it_group_prop', 'it_group_count', 'it_post_count', 'it_post_prop',
             'site', 'y', 'weighted_group_sum']
 
-path_to_models = ['rf', 'rf_without_cw', 'xgb_new_model', 'xgb_new']
-path_to_models = list(map(lambda x: 'home/denis/PycharmProjects/tinkof/fited_full_data/' + x, path_to_models))
+path_to_models = ['rf', 'xgb_new_model', 'xgb', 'xgb_new']
+path_to_models = list(map(lambda x: 'full/' + x, path_to_models))
 models = [pickle.load(open(name, 'rb')) for name in path_to_models]
 
 df_base = df_base.loc[:, features]
@@ -42,7 +43,11 @@ S_train, S_test = stacking(models, X_train, y_train, X_test,
                            stratified=True,
                            shuffle=True,
                            verbose=2)
-for model in models:
-    model = model.fit(S_train, y_train)
-    y_pred = model.predict(S_test)
-    print('Accuracy: {}'.format(accuracy_score(y_test, y_pred)))
+# for model in models:
+#     model = model.fit(S_train, y_train)
+#     y_pred = model.predict(S_test)
+#     print('Accuracy: {}'.format(accuracy_score(y_test, y_pred)))
+
+model = LogisticRegression()
+model.fit(S_train, y_train)
+print(accuracy_score(y_test, model.predict(S_test)))

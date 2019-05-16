@@ -31,8 +31,8 @@ X, y = df.drop('y', axis=1).values, df['y'].values
 X_train, X_test, y_train, y_test = train_test_split(X, y, shuffle=True, test_size=0.25)
 
 xgb = CatBoostClassifier()
-# xgb.fit(X_train, y_train)
-# print('Accuracy ', accuracy_score(y_test, xgb.predict(X_test)))
+# xgb_new_model.fit(X_train, y_train)
+# print('Accuracy ', accuracy_score(y_test, xgb_new_model.predict(X_test)))
 
 cv = StratifiedKFold(n_splits=5, shuffle=True)
 param = {'n_estimators': [x for x in range(10, 201, 20)],
