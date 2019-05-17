@@ -1,0 +1,9 @@
+{
+    "valid accuracy": 0.8389513108614233,
+    "features": [
+        "rf_predict",
+        "xgb_predict",
+        "xgb_new_predict",
+        "xgb_new_model_predict"
+    ]
+}

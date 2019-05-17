@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split, StratifiedKFold
 from sklearn.metrics import accuracy_score
 from vecstack import stacking
 from sklearn.linear_model import LogisticRegression
+from meth_mod import save_model
 
 path_label0_xlsx = "~/PycharmProjects/tinkof/data/id_label0_new.xlsx"
 df_label_0 = pd.read_excel(path_label0_xlsx)
@@ -18,7 +19,7 @@ features = ['career', 'educ', 'it_descr',
             'it_group_prop', 'it_group_count', 'it_post_count', 'it_post_prop',
             'site', 'y', 'weighted_group_sum']
 
-path_to_models = ['rf', 'xgb_new_model', 'xgb', 'xgb_new']
+path_to_models = ['rf', 'xgb', 'xgb_new', 'xgb_new_model']
 path_to_models = list(map(lambda x: 'full/' + x, path_to_models))
 models = [pickle.load(open(name, 'rb')) for name in path_to_models]
 
@@ -43,11 +44,9 @@ S_train, S_test = stacking(models, X_train, y_train, X_test,
                            stratified=True,
                            shuffle=True,
                            verbose=2)
-# for model in models:
-#     model = model.fit(S_train, y_train)
-#     y_pred = model.predict(S_test)
-#     print('Accuracy: {}'.format(accuracy_score(y_test, y_pred)))
-
 model = LogisticRegression()
 model.fit(S_train, y_train)
 print(accuracy_score(y_test, model.predict(S_test)))
+
+meta_feat = ['rf_predict', 'xgb_predict', 'xgb_new_predict', 'xgb_new_model_predict']
+save_model('Meta_model', model, accuracy_score(y_test, model.predict(S_test)), meta_feat)
