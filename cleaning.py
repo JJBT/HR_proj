@@ -15,7 +15,7 @@ api = vk.API(session, v=API_version)
 if len(sys.argv) > 1:
     filename = sys.argv[1]
 else:
-    filename = 'data/java.xlsx'
+    filename = 'mckinsey_test.xlsx'
 
 df = pd.read_excel(filename)
 
