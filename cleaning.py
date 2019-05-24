@@ -19,7 +19,6 @@ else:
 
 df = pd.read_excel(filename)
 
-
 err_arr = []
 
 for idx, row in df.iterrows():
