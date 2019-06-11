@@ -7,7 +7,7 @@ import time
 
 from Credentials import *
 
-session = vk.Session(access_token=access_token)
+session = vk.Session(access_token=access_token1)
 api = vk.API(session, v=API_version)
 
 corpus1 = pd.read_excel(path_to_corpus)['words'].dropna().values
