@@ -2,7 +2,7 @@ import pickle
 import pandas as pd
 import warnings
 from sklearn.model_selection import train_test_split
-from sklearn.model_selection import RandomizedSearchCV, GridSearchCV, StratifiedKFold
+from sklearn.model_selection import RandomizedSearchCV, StratifiedKFold
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 

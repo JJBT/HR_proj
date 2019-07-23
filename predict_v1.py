@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 from meth_mod import predict
 
-path_to_df = "data/V3.xlsx"
+path_to_df = "data/V4-9.xlsx"
 df = pd.read_excel(path_to_df)
 
 path_to_models = ['rf', 'xgb']
@@ -23,4 +23,4 @@ for name in path_to_models:
     preds = predict(model, X)
     df[name + '_predict'] = preds
 
-df.to_excel('data/V3_predict.xlsx')
+df.to_excel('data/V4-9_predict.xlsx')

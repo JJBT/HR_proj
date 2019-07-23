@@ -1,7 +1,8 @@
+import pandas as pd
 import pickle
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.model_selection import learning_curve
+from sklearn.model_selection import learning_curve, ShuffleSplit
 
 
 def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
@@ -34,3 +35,31 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
     return plt
 
 
+path_label0_xlsx = "data/id_labels0_new.xlsx"
+df_label_0 = pd.read_excel(path_label0_xlsx)
+
+path_base1 = "data/Base1.xlsx"
+df_base = pd.read_excel(path_base1)
+
+path_non_prog = "data/non_prog_parsed.xlsx"
+df_non = pd.read_excel(path_non_prog)
+
+features = ['career', 'educ', 'it_descr',
+            'it_group_prop', 'it_group_count', 'it_post_count', 'it_post_prop',
+            'site', 'y', 'weighted_group_sum']
+
+df_base = df_base.loc[:, features]
+df_base.reset_index(inplace=True, drop=True)
+
+df_non = df_non.loc[:, features]
+df_label_0 = df_label_0.loc[:, features]
+df_label_0.reset_index(inplace=True, drop=True)
+
+df = pd.concat([df_base, df_label_0, df_non], ignore_index=True)
+X, y = df.drop('y', axis=1).values, df['y'].values
+
+cv = ShuffleSplit(100, test_size=0.2)
+
+model = pickle.load(open('full/forest_1_5_recall', 'rb'))
+plot_learning_curve(model, 'learning curve', X, y, cv=cv)
+plt.show()
