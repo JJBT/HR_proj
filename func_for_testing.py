@@ -1,13 +1,13 @@
 import pickle
 import warnings
 import pandas as pd
-from sklearn.metrics import recall_score
+from sklearn.metrics import recall_score, accuracy_score
 warnings.filterwarnings('ignore')
 features = ['career', 'educ', 'it_descr',
             'it_group_prop', 'it_group_count', 'it_post_count', 'it_post_prop',
             'site', 'y', 'weighted_group_sum']
 features.remove('y')
-model = pickle.load(open('full/rf_fake_without_cw', 'rb'))
+model = pickle.load(open('full/xgb_recall', 'rb'))
 # 4 8 9
 df = pd.read_excel('data/V4-9.xlsx')
 

@@ -1,0 +1,4 @@
+ssh -i /Users/Vladimyr/.ssh/first_serv.pem.txt ubuntu@ec2-35-182-55-38.ca-central-1.compute.amazonaws.com
+Base0 it_group_count
+
+ssh -i /Users/Vladimyr/.ssh/new_serv.pem.txt ubuntu@ec2-35-183-205-10.ca-central-1.compute.amazonaws.com
